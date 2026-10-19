@@ -1,0 +1,6 @@
+.DS_Store
+cache.db
+geoip.metadb
+providers/
+proxies/
+rules/upstream/

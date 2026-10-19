@@ -1,0 +1,188 @@
+{
+  "target": "Mihomo (Clash.Meta)",
+  "source_rules": 1053,
+  "unchanged_rules": 1026,
+  "modified_rules": 1,
+  "omitted_rules": 26,
+  "source_types": {
+    "DOMAIN": 68,
+    "DOMAIN-KEYWORD": 18,
+    "DOMAIN-SUFFIX": 857,
+    "IP-CIDR": 83,
+    "URL-REGEX": 1,
+    "USER-AGENT": 26
+  },
+  "changes": [
+    {
+      "file": "Google.list",
+      "line": "732",
+      "source": "USER-AGENT,%E4%BA%91%E7%AB%AF%E7%A1%AC%E7%9B%98*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Google.list",
+      "line": "733",
+      "source": "USER-AGENT,*com.google.Drive*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Google.list",
+      "line": "734",
+      "source": "USER-AGENT,Google.Drive*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "HK_Banks_Direct.list",
+      "line": "5",
+      "source": "URL-REGEX,^https?://www\\.sc\\.com/hk/",
+      "output": "DOMAIN,www.sc.com",
+      "action": "broadened to host match: Mihomo cannot route by URL path"
+    },
+    {
+      "file": "Apple.list",
+      "line": "30",
+      "source": "USER-AGENT,*FindMyiPhone?",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "31",
+      "source": "USER-AGENT,*Music?",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "32",
+      "source": "USER-AGENT,*WeatherFoundation*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "33",
+      "source": "USER-AGENT,*com.apple.Maps?",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "34",
+      "source": "USER-AGENT,*com.apple.mobileme.fmip1",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "35",
+      "source": "USER-AGENT,FMDClient*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "36",
+      "source": "USER-AGENT,FMFD*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "37",
+      "source": "USER-AGENT,FindMyFriends*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "38",
+      "source": "USER-AGENT,FindMyiPhone*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "39",
+      "source": "USER-AGENT,Maps*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "40",
+      "source": "USER-AGENT,Wallet*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "41",
+      "source": "USER-AGENT,com.apple.Maps",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "42",
+      "source": "USER-AGENT,com.apple.appstored*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "43",
+      "source": "USER-AGENT,fmflocatord*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "44",
+      "source": "USER-AGENT,geod*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "45",
+      "source": "USER-AGENT,locationd*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "46",
+      "source": "USER-AGENT,passd*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "47",
+      "source": "USER-AGENT,Music*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "48",
+      "source": "USER-AGENT,AppleNews*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "49",
+      "source": "USER-AGENT,com.apple.news*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "50",
+      "source": "USER-AGENT,com.apple.trustd*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "51",
+      "source": "USER-AGENT,AppleTV*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    },
+    {
+      "file": "Apple.list",
+      "line": "52",
+      "source": "USER-AGENT,com.apple.tv*",
+      "action": "omitted: Mihomo has no USER-AGENT routing rule"
+    }
+  ],
+  "config_level_changes": [
+    "PROTOCOL,TCP was translated to NETWORK,TCP.",
+    "FINAL was translated to MATCH.",
+    "Shadowrocket DOMAIN-SET/RULE-SET URLs use Clash-native providers.",
+    "Host server:system entries are represented by fake-ip-filter/direct-nameserver.",
+    "URL Rewrite and MITM are omitted; Mihomo routing has no equivalent redirect feature.",
+    "block-quic has no direct one-line equivalent and is not enabled in this first conversion."
+  ]
+}

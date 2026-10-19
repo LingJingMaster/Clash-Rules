@@ -1,0 +1,358 @@
+# Mihomo (Clash.Meta) configuration converted from Shadowrocket.conf
+# Replace the subscription URL before runtime testing.
+
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+tun:
+  enable: true
+  stack: mixed
+  auto-route: true
+  auto-detect-interface: true
+  strict-route: true
+  dns-hijack:
+    - any:53
+    - tcp://any:53
+  route-exclude-address:
+    - 10.0.0.0/8
+    - 100.64.0.0/10
+    - 127.0.0.0/8
+    - 169.254.0.0/16
+    - 172.16.0.0/12
+    - 192.0.0.0/24
+    - 192.0.2.0/24
+    - 192.88.99.0/24
+    - 192.168.0.0/16
+    - 198.51.100.0/24
+    - 203.0.113.0/24
+    - 224.0.0.0/4
+
+hosts:
+  'localhost': 127.0.0.1
+  'localhost.weixin.qq.com': 127.0.0.1
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  use-hosts: true
+  use-system-hosts: true
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  proxy-server-nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  nameserver:
+    - 'https://cloudflare-dns.com/dns-query#🚀 节点选择'
+    - 'https://dns.google/dns-query#🚀 节点选择'
+  direct-nameserver:
+    - system
+  direct-nameserver-follow-policy: false
+  fake-ip-filter:
+    - '*.lan'
+    - '*.local'
+    - '*.in-addr.arpa'
+    - '*.ip6.arpa'
+    - 'localhost'
+    - 'localhost.weixin.qq.com'
+    - 'dns.weixin.qq.com'
+    - 'dns.weixin.qq.com.cn'
+    - 'multimedia.nt.qq.com.cn'
+    - '*.qpic.cn'
+    - '*.qlogo.cn'
+    - '*.icloud-content.com'
+    - '*.apple-cloudkit.com'
+    - '*.cdn-apple.com'
+
+proxy-providers:
+  subscription:
+    type: http
+    url: 'https://example.com/replace-with-your-subscription-url'
+    path: ./proxies/subscription.yaml
+    interval: 86400
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 600
+      timeout: 5000
+
+proxy-groups:
+  - name: '🚀 节点选择'
+    type: select
+    proxies: ['🇭🇰 香港节点', '🇹🇼 台湾节点', '🇯🇵 日本节点', '🇺🇸 美国节点', '🌐 其他节点', DIRECT, REJECT]
+    include-all: true
+    exclude-type: direct
+
+  - name: '🇭🇰 香港节点'
+    type: url-test
+    include-all: true
+    exclude-type: direct
+    filter: '(?i)🇭🇰|HK|Hong|香港|深港|沪港|京港|港'
+    url: https://www.gstatic.com/generate_204
+    interval: 600
+    tolerance: 0
+    timeout: 5000
+
+  - name: '🇹🇼 台湾节点'
+    type: url-test
+    include-all: true
+    exclude-type: direct
+    filter: '(?i)🇹🇼|TW|TWN|Taiwan|Taipei|台湾|台灣|台北|台中|新北|彰化'
+    url: https://www.gstatic.com/generate_204
+    interval: 600
+    tolerance: 0
+    timeout: 5000
+
+  - name: '🇯🇵 日本节点'
+    type: url-test
+    include-all: true
+    exclude-type: direct
+    filter: '(?i)🇯🇵|JP|Japan|Tokyo|日本|东京|大阪'
+    url: https://www.gstatic.com/generate_204
+    interval: 600
+    tolerance: 0
+    timeout: 5000
+
+  - name: '🇺🇸 美国节点'
+    type: url-test
+    include-all: true
+    exclude-type: direct
+    filter: '(?i)🇺🇸|US|USA|America|United States|美国|凤凰城|洛杉矶|西雅图|芝加哥|纽约|沪美|美'
+    url: https://www.gstatic.com/generate_204
+    interval: 600
+    tolerance: 0
+    timeout: 5000
+
+  - name: '🌐 其他节点'
+    type: url-test
+    include-all: true
+    exclude-type: direct
+    exclude-filter: '(?i)🇭🇰|HK|Hong|香港|深港|沪港|京港|港|🇹🇼|TW|TWN|Taiwan|Taipei|台湾|台灣|台北|台中|新北|彰化|🇯🇵|JP|Japan|Tokyo|日本|东京|大阪|🇺🇸|US|USA|America|United States|美国|凤凰城|洛杉矶|西雅图|芝加哥|纽约|沪美|美'
+    url: https://www.gstatic.com/generate_204
+    interval: 600
+    tolerance: 0
+    timeout: 5000
+
+  - {name: '🧱 DNS 防泄露', type: select, proxies: [REJECT, '🚀 节点选择', DIRECT]}
+  - {name: '🤖 AI 服务', type: select, proxies: ['🇺🇸 美国节点', '🚀 节点选择', DIRECT, REJECT]}
+  - {name: '📹 油管视频', type: select, proxies: ['🚀 节点选择', DIRECT, REJECT]}
+  - {name: '🔍 谷歌服务', type: select, proxies: ['🇯🇵 日本节点', '🇭🇰 香港节点', '🚀 节点选择', DIRECT, REJECT]}
+  - {name: 'Ⓜ️ 微软服务', type: select, proxies: ['🚀 节点选择', DIRECT, REJECT]}
+  - {name: '📧 邮件服务', type: select, proxies: ['🚀 节点选择', DIRECT, '🇯🇵 日本节点', '🇭🇰 香港节点', REJECT]}
+  - {name: '🍏 苹果服务', type: select, proxies: [DIRECT, '🚀 节点选择', REJECT]}
+  - {name: '🍎 苹果推送', type: select, proxies: ['🚀 节点选择', DIRECT, REJECT]}
+  - {name: '📲 电报消息', type: select, proxies: ['🚀 节点选择', DIRECT, REJECT]}
+  - {name: '🐱 代码托管', type: select, proxies: ['🚀 节点选择', DIRECT, REJECT]}
+  - {name: '🏦 汇丰香港', type: select, proxies: [DIRECT, '🇭🇰 香港节点', '🚀 节点选择', REJECT]}
+  - {name: '🏦 香港银行', type: select, proxies: [DIRECT, '🇭🇰 香港节点', '🚀 节点选择', REJECT]}
+  - {name: '📈 券商服务', type: select, proxies: ['🇭🇰 香港节点', DIRECT, '🚀 节点选择', REJECT]}
+  - {name: '🏠 私有网络', type: select, proxies: [DIRECT, '🚀 节点选择', REJECT]}
+  - {name: '🔒 国内服务', type: select, proxies: [DIRECT, '🚀 节点选择', REJECT]}
+  - {name: '🌍 非中国', type: select, proxies: ['🚀 节点选择', DIRECT, REJECT, '🇯🇵 日本节点']}
+  - {name: '🐟 漏网之鱼', type: select, proxies: ['🚀 节点选择', DIRECT, REJECT, '🇯🇵 日本节点']}
+
+rule-providers:
+  Mail:
+    type: http
+    behavior: classical
+    format: text
+    url: 'https://raw.githubusercontent.com/LingJingMaster/Shadowrocket-Rules/refs/heads/main/Mail.list'
+    path: ./providers/mail.list
+    interval: 86400
+  Google:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/LingJingMaster/Clash-Rules/refs/heads/main/rules/Google.yaml'
+    path: ./providers/google.yaml
+    interval: 86400
+  AI:
+    type: http
+    behavior: classical
+    format: text
+    url: 'https://raw.githubusercontent.com/LingJingMaster/Shadowrocket-Rules/refs/heads/main/AI.list'
+    path: ./providers/ai.list
+    interval: 86400
+  HSBC_HK:
+    type: http
+    behavior: classical
+    format: text
+    url: 'https://raw.githubusercontent.com/LingJingMaster/Shadowrocket-Rules/refs/heads/main/HSBC_HK.list'
+    path: ./providers/hsbc-hk.list
+    interval: 86400
+  HK_Banks_Direct:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/LingJingMaster/Clash-Rules/refs/heads/main/rules/HK_Banks_Direct.yaml'
+    path: ./providers/hk-banks-direct.yaml
+    interval: 86400
+  HK_Broker:
+    type: http
+    behavior: classical
+    format: text
+    url: 'https://raw.githubusercontent.com/LingJingMaster/Shadowrocket-Rules/refs/heads/main/HK_Broker.list'
+    path: ./providers/hk-broker.list
+    interval: 86400
+  ApplePush:
+    type: http
+    behavior: classical
+    format: text
+    url: 'https://raw.githubusercontent.com/LingJingMaster/Shadowrocket-Rules/refs/heads/main/ApplePush.list'
+    path: ./providers/apple-push.list
+    interval: 86400
+  Apple:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/LingJingMaster/Clash-Rules/refs/heads/main/rules/Apple.yaml'
+    path: ./providers/apple.yaml
+    interval: 86400
+  block-http-dns:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BlockHttpDNS/BlockHttpDNS.yaml'
+    path: ./rules/upstream/block-http-dns.yaml
+    interval: 86400
+  youtube:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml'
+    path: ./rules/upstream/youtube.yaml
+    interval: 86400
+  bilibili:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BiliBili/BiliBili.yaml'
+    path: ./rules/upstream/bilibili.yaml
+    interval: 86400
+  lan:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml'
+    path: ./rules/upstream/lan.yaml
+    interval: 86400
+  telegram:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml'
+    path: ./rules/upstream/telegram.yaml
+    interval: 86400
+  github:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml'
+    path: ./rules/upstream/github.yaml
+    interval: 86400
+  gitlab:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitLab/GitLab.yaml'
+    path: ./rules/upstream/gitlab.yaml
+    interval: 86400
+  atlassian:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Atlassian/Atlassian.yaml'
+    path: ./rules/upstream/atlassian.yaml
+    interval: 86400
+  microsoft:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml'
+    path: ./rules/upstream/microsoft.yaml
+    interval: 86400
+  apple-domain:
+    type: http
+    behavior: domain
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Domain.yaml'
+    path: ./rules/upstream/apple-domain.yaml
+    interval: 86400
+  china:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China.yaml'
+    path: ./rules/upstream/china.yaml
+    interval: 86400
+  china-domain:
+    type: http
+    behavior: domain
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China_Domain.yaml'
+    path: ./rules/upstream/china-domain.yaml
+    interval: 86400
+  global:
+    type: http
+    behavior: classical
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Global/Global.yaml'
+    path: ./rules/upstream/global.yaml
+    interval: 86400
+  global-domain:
+    type: http
+    behavior: domain
+    format: yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Global/Global_Domain.yaml'
+    path: ./rules/upstream/global-domain.yaml
+    interval: 86400
+
+rules:
+  - DOMAIN,localhost.weixin.qq.com,DIRECT
+  - DOMAIN,dns.weixin.qq.com.cn,🔒 国内服务
+  - DOMAIN,dns.weixin.qq.com,🔒 国内服务
+  - DOMAIN,multimedia.nt.qq.com.cn,🔒 国内服务
+  - DOMAIN-SUFFIX,qlogo.cn,🔒 国内服务
+  - DOMAIN-SUFFIX,qpic.cn,🔒 国内服务
+  - DOMAIN-SUFFIX,weixin.com,🔒 国内服务
+  - IP-CIDR,119.29.29.98/31,🔒 国内服务,no-resolve
+  - DOMAIN-SUFFIX,local,🏠 私有网络
+  - DOMAIN-SUFFIX,in-addr.arpa,🏠 私有网络
+  - DOMAIN-SUFFIX,ip6.arpa,🏠 私有网络
+  - DOMAIN-SUFFIX,doubao.com,🔒 国内服务
+  - DOMAIN-SUFFIX,deepseek.com,🔒 国内服务
+  - DOMAIN-SUFFIX,deepseeksvc.com,🔒 国内服务
+  - DOMAIN-SUFFIX,xet.tech,🔒 国内服务
+  - AND,((NETWORK,TCP),(DST-PORT,5223)),🍎 苹果推送
+  - IP-CIDR,208.54.0.0/16,🇺🇸 美国节点,no-resolve
+  - RULE-SET,block-http-dns,🧱 DNS 防泄露
+  - RULE-SET,Mail,📧 邮件服务
+  - DOMAIN,translate.googleapis.com,📹 油管视频
+  - DOMAIN,translate-pa.googleapis.com,📹 油管视频
+  - RULE-SET,Google,🔍 谷歌服务
+  - RULE-SET,AI,🤖 AI 服务
+  - RULE-SET,youtube,📹 油管视频
+  - RULE-SET,bilibili,🔒 国内服务
+  - RULE-SET,lan,🏠 私有网络
+  - RULE-SET,telegram,📲 电报消息
+  - RULE-SET,github,🐱 代码托管
+  - RULE-SET,gitlab,🐱 代码托管
+  - RULE-SET,atlassian,🐱 代码托管
+  - RULE-SET,microsoft,Ⓜ️ 微软服务
+  - RULE-SET,HSBC_HK,🏦 汇丰香港
+  - RULE-SET,HK_Banks_Direct,🏦 香港银行
+  - RULE-SET,HK_Broker,📈 券商服务
+  - RULE-SET,ApplePush,🍎 苹果推送
+  - RULE-SET,Apple,🍏 苹果服务
+  - RULE-SET,apple-domain,🍏 苹果服务
+  - RULE-SET,china,🔒 国内服务
+  - RULE-SET,china-domain,🔒 国内服务
+  - RULE-SET,global,🌍 非中国
+  - RULE-SET,global-domain,🌍 非中国
+  - GEOIP,CN,🔒 国内服务
+  - MATCH,🐟 漏网之鱼
