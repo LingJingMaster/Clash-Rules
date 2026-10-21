@@ -39,32 +39,6 @@
 6. 国内服务、非中国服务
 7. GEOIP CN 与最终兜底
 
-## 规则来源与复用方式
-
-- 可以被 Mihomo `classical` provider 直接解析的自有规则，继续使用 `Shadowrocket-Rules` 的 Raw 链接：`Mail`、`AI`、`HSBC_HK`、`HK_Broker`、`ApplePush`。
-- `Google`、`Apple` 含 Mihomo 不支持的 `USER-AGENT` 规则，转换后的版本存放在本仓库 `rules/`。
-- `HK_Banks_Direct` 含按 URL 路径匹配的规则，Mihomo 无法等价表达；本仓库将它转换为主机名规则。
-- YouTube、BiliBili、LAN、Telegram、GitHub、GitLab、Atlassian、Microsoft、China、Global 等规则直接使用 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 提供的 Clash 原生版本。
-
-## 转换差异
-
-原有 1053 条自有规则中：
-
-| 分类 | 数量 | 处理方式 |
-|---|---:|---|
-| 可直接使用 | 1026 | `DOMAIN`、`DOMAIN-SUFFIX`、`DOMAIN-KEYWORD`、`IP-CIDR` 保持不变 |
-| 需要修改 | 1 | `URL-REGEX,^https?://www\.sc\.com/hk/` 扩大为 `DOMAIN,www.sc.com` |
-| 无法等价转换 | 26 | 23 条 Apple 与 3 条 Google `USER-AGENT` 规则省略 |
-
-主配置还进行了以下语法转换：
-
-- `PROTOCOL,TCP` → `NETWORK,TCP`
-- `FINAL` → `MATCH`
-- Shadowrocket `RULE-SET` / `DOMAIN-SET` → Mihomo `rule-providers`
-- `server:system` DNS 例外 → `fake-ip-filter` 与 `direct-nameserver`
-
-Shadowrocket 的 URL Rewrite、MITM 和 `block-quic` 没有进行非等价模拟。完整逐条记录见 [`conversion-report.json`](./conversion-report.json)。
-
 ## 文件结构
 
 ```text
