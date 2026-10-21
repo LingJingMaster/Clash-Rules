@@ -5,6 +5,7 @@ mixed-port: 7890
 allow-lan: false
 mode: rule
 log-level: info
+tcp-concurrent: true
 ipv6: false
 
 tun:
@@ -96,7 +97,7 @@ proxy-groups:
     filter: '(?i)🇭🇰|HK|Hong|香港|深港|沪港|京港|港'
     url: https://www.gstatic.com/generate_204
     interval: 600
-    tolerance: 0
+    tolerance: 50
     timeout: 5000
 
   - name: '🇹🇼 台湾节点'
@@ -106,7 +107,7 @@ proxy-groups:
     filter: '(?i)🇹🇼|TW|TWN|Taiwan|Taipei|台湾|台灣|台北|台中|新北|彰化'
     url: https://www.gstatic.com/generate_204
     interval: 600
-    tolerance: 0
+    tolerance: 50
     timeout: 5000
 
   - name: '🇯🇵 日本节点'
@@ -116,7 +117,7 @@ proxy-groups:
     filter: '(?i)🇯🇵|JP|Japan|Tokyo|日本|东京|大阪'
     url: https://www.gstatic.com/generate_204
     interval: 600
-    tolerance: 0
+    tolerance: 50
     timeout: 5000
 
   - name: '🇺🇸 美国节点'
@@ -126,7 +127,7 @@ proxy-groups:
     filter: '(?i)🇺🇸|US|USA|America|United States|美国|凤凰城|洛杉矶|西雅图|芝加哥|纽约|沪美|美'
     url: https://www.gstatic.com/generate_204
     interval: 600
-    tolerance: 0
+    tolerance: 50
     timeout: 5000
 
   - name: '🌐 其他节点'
@@ -136,7 +137,7 @@ proxy-groups:
     exclude-filter: '(?i)🇭🇰|HK|Hong|香港|深港|沪港|京港|港|🇹🇼|TW|TWN|Taiwan|Taipei|台湾|台灣|台北|台中|新北|彰化|🇯🇵|JP|Japan|Tokyo|日本|东京|大阪|🇺🇸|US|USA|America|United States|美国|凤凰城|洛杉矶|西雅图|芝加哥|纽约|沪美|美'
     url: https://www.gstatic.com/generate_204
     interval: 600
-    tolerance: 0
+    tolerance: 50
     timeout: 5000
 
   - {name: '🧱 DNS 防泄露', type: select, proxies: [REJECT, '🚀 节点选择', DIRECT]}
