@@ -139,6 +139,7 @@ proxy-groups:
     timeout: 5000
 
   - {name: '🧱 DNS 防泄露', type: select, proxies: [REJECT, '🚀 节点选择', DIRECT]}
+  - {name: '🛡️ WebRTC 防泄露', type: select, proxies: [REJECT, '🚀 节点选择', DIRECT], include-all: true, exclude-type: direct}
   - {name: '🤖 AI 服务', type: select, proxies: ['🇺🇸 美国节点', '🚀 节点选择', DIRECT, REJECT]}
   - {name: '📹 油管视频', type: select, proxies: ['🚀 节点选择', DIRECT, REJECT]}
   - {name: '🔍 谷歌服务', type: select, proxies: ['🇯🇵 日本节点', '🇭🇰 香港节点', '🚀 节点选择', DIRECT, REJECT]}
@@ -313,6 +314,9 @@ rule-providers:
     interval: 86400
 
 rules:
+  - AND,((NETWORK,UDP),(DST-PORT,3478)),🛡️ WebRTC 防泄露
+  - AND,((NETWORK,UDP),(DST-PORT,5349)),🛡️ WebRTC 防泄露
+  - AND,((NETWORK,UDP),(DST-PORT,19302-19309)),🛡️ WebRTC 防泄露
   - DOMAIN,localhost.weixin.qq.com,DIRECT
   - DOMAIN,dns.weixin.qq.com.cn,🔒 国内服务
   - DOMAIN,dns.weixin.qq.com,🔒 国内服务
