@@ -51,6 +51,13 @@ dns:
   nameserver:
     - 'https://cloudflare-dns.com/dns-query#🚀 节点选择'
     - 'https://dns.google/dns-query#🚀 节点选择'
+  nameserver-policy:
+    '+.xhscdn.com':
+      - 'https://dns.alidns.com/dns-query#DIRECT'
+      - 'https://doh.pub/dns-query#DIRECT'
+    '+.xiaohongshu.com':
+      - 'https://dns.alidns.com/dns-query#DIRECT'
+      - 'https://doh.pub/dns-query#DIRECT'
   direct-nameserver:
     - 223.5.5.5
     - 119.29.29.29
