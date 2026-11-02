@@ -330,6 +330,8 @@ rules:
   - AND,((NETWORK,UDP),(DST-PORT,3478)),🛡️ WebRTC
   - AND,((NETWORK,UDP),(DST-PORT,5349)),🛡️ WebRTC
   - AND,((NETWORK,UDP),(DST-PORT,19302-19309)),🛡️ WebRTC
+  # Grok Bot attachment storage is unreliable through the current proxy path.
+  - DOMAIN,agent-stores.s3.us-east-1.amazonaws.com,DIRECT
   - DOMAIN,localhost.weixin.qq.com,DIRECT
   - DOMAIN,dns.weixin.qq.com.cn,🔒 国内服务
   - DOMAIN,dns.weixin.qq.com,🔒 国内服务
